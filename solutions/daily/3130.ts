@@ -120,11 +120,12 @@ function numberOfStableArrays(
   const smallest = getSmallest(zero, one);
   const largest = getLargest(zero, one);
   const length = zero + one;
+  const actualLimit = limit > length ? length : limit;
   let stableArrays = 0;
   for (let i = smallest; i <= largest; i++) {
     const bI = i.toString(2).padStart(length, "0");
     if (hasCorrectZO(bI, zero, one)) {
-      if (allSubstringsOfLengthLargerHaveBoth(bI, limit)) {
+      if (allSubstringsOfLengthLargerHaveBoth(bI, actualLimit)) {
         stableArrays += 1;
       }
     }
@@ -176,5 +177,11 @@ function numberOfStableArrays(
 console.log("Expected 2 found ", numberOfStableArrays(1, 1, 2));
 console.log("Expected 1 found ", numberOfStableArrays(1, 2, 1));
 console.log("Expected 14 found ", numberOfStableArrays(3, 3, 2));
+//console.log("Expected 14 found ", numberOfStableArrays(9, 23, 79)) - takes too long;
+
 
 // Failed: I just don't get how a limit larger than the possible subarray length can be allowed or computed.
+// Answer understood: In such a case there are 0 subarrays larger than limit, hence the answer is simply every subarray meeting the first two conditions.
+// Can this be done by counting to max length only?
+
+// Failed: Solution inefficient!
